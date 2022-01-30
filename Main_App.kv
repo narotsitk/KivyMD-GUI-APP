@@ -1,0 +1,66 @@
+<Main_Screen>:
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: tool_bar
+            spacing: "10dp"
+            title: "Text and Voice Note"
+            left_action_items: [['menu', lambda x: nav_drawer.set_state("open") ]]
+
+        MDTabs:
+            id: tabs
+            on_tab_switch: root.on_tab_switch(*args)
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        Nav_Drawer_Content:
+
+<Nav_Drawer_Content>:
+    orientation: "vertical"
+    padding: "7dp"
+    spacing: "7dp"
+
+    AnchorLayout:
+        id: anchor_la
+        anchor_x:  "left"
+        size_hint_y: None
+        height: my_avatar.height
+
+        Image:
+            id: my_avatar
+            canvas:
+                Ellipse:
+                    pos: anchor_la.x + 2, anchor_la.y + 4
+                    size: 90,90
+                    source: "Batman.png"
+                    angle_start: 0
+                    angle_end: 360
+
+
+    MDLabel:
+        text: "Narotsit Karki"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    MDLabel:
+        text: "narotsitkarki1234@gmail.com"
+        font_style: "Caption"
+        size_hint_y:None
+        height: self.texture_size[1]
+
+
+    ScrollView:
+        DrawerList:
+            id: md_list_1
+
+
+<ItemDrawer>:
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+
+
+
+
+

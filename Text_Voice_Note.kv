@@ -1,0 +1,67 @@
+
+<MyItem>:
+
+    _no_ripple_effect: True
+    on_press: root.on_callback()
+    IconLeftWidget:
+        id: left_icon
+        icon: "notebook-check"
+    IconRightWidget:
+        icon: "trash-can"
+        on_press: root.remove_note(root)
+
+    FloatLayout:
+        MDSpinner:
+            id: spin_load
+            size_hint: None, None
+            size: dp(46), dp(46)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            active: False
+
+
+<Text_Voice_Note_Tab>:
+    orientation: "vertical"
+    spacing: "10dp"
+    ScrollView:
+        size_hint: 1 , None
+        height: root.height
+        MDList:
+            id: selection_list
+            spacing: "12dp"
+
+
+    FloatLayout:
+        MDFloatingActionButtonSpeedDial:
+            data: root.data
+            root_button_anim: True
+            callback: root.callback
+
+<Text_Note_Screen>:
+    MDToolbar:
+        id: md_tool_bar
+        pos_hint: {'top': 1}
+        title: "Text Note"
+        left_action_items: [['keyboard-backspace', lambda x: root.return_back()]]
+
+
+    FloatLayout:
+        MDTextFieldRect:
+            id: title
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            spacing: "3dp"
+            hint_text: "Title"
+            size_hint: None, None
+            width: root.width - 50
+            height: "30dp"
+
+            multiline: False
+
+        MDTextFieldRect:
+            id: notes
+            pos_hint: {'center_x': .5, 'center_y': .4}
+            size_hint: None, None
+            height: root.height - 160
+            width: root.width - 50
+            multiline: True
+            hint_text: "Write Some Notes"
+            on_text: root.add_widget_on_toolbar(self.text)
