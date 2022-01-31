@@ -13,8 +13,44 @@
         callback: root.callback
 
 <Image_list>:
+    on_press: root.on_press_image()
     FloatLayout:
         MDIconButton:
-            pos: root.x , root.y
+            pos: root.x , root.y + 20
             icon: "trash-can"
-            on_press: root.remove_image(root)
+            icon_color: 1,0,0,1
+            theme_icon_color: "Error"
+            on_press: root.on_press_delete(root)
+
+
+<Image_Note_Create>:
+    MDToolbar:
+        id: md_tool_bar
+        pos_hint: {'top': 1}
+        title: "Create Image Note"
+        left_action_items: [['keyboard-backspace', lambda x: root.return_back()]]
+
+    MDCard:
+        id: note_card
+        padding: 16
+        size_hint: None, None
+        height: root.height - 100
+        width: root.width
+        pos_hint: {'center_x': .5,'center_y': .5}
+
+        MDRelativeLayout:
+            id: r_layout
+            size_hint: None, None
+            width: root.width - 40
+            height: root.height - 165
+
+            MDTextFieldRect:
+                id: image_note
+                pos_hint: {'center_y': .2}
+                multiline: True
+                hint_text: "Write Some Notes"
+                size_hint_y: .4
+                size_hint_x: root.size_hint_x
+                on_text: root.add_widget_toolbar(self.text)
+
+

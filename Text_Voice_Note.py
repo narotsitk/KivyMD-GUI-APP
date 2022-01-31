@@ -14,11 +14,9 @@ from kivymd.uix.tab import MDTabsBase
 
 Builder.load_file("Text_Voice_Note.kv")
 
-display_text_note_screen = False
-selection_mode = False
-pressed = 0
-spin = 0
+
 item_list_object = None
+
 class MyItem(ThreeLineAvatarIconListItem):
     title = None
     notes = None
@@ -71,11 +69,6 @@ class Text_Voice_Note_Tab(BoxLayout,MDTabsBase):
 
 
 
-
-
-
-
-
 class Text_Note_Screen(Screen):
 
     def __init__(self,title,notes,obj,**kwargs):
@@ -111,6 +104,7 @@ class Text_Note_Screen(Screen):
                 item_list_object.secondary_text = notes[:15]+"..."
             elif title == "":
                 item_list_object.text = notes[:15]
+
             item_list_object.title = title
             item_list_object.notes = notes
             item_list_object.tertiary_text = self.timeStr
@@ -118,8 +112,7 @@ class Text_Note_Screen(Screen):
         self.parent.remove_widget(self.parent.get_screen("Text_Note"))
 
     def return_back(self):
-        global display_text_note_screen
-        display_text_note_screen = True
+
         self.parent.current = "Main"
         self.parent.remove_widget(self.parent.get_screen("Text_Note"))
 

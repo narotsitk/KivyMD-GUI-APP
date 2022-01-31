@@ -31,7 +31,7 @@ class Main_Screen(Screen):
             if tab_icon == "notebook-plus":
                 self.ids.tabs.add_widget(Text_Voice_Note_Tab(icon = tab_icon, obj = self))
             elif tab_icon == "image-plus":
-                self.ids.tabs.add_widget(Image_Note_Tab(icon = tab_icon))
+                self.ids.tabs.add_widget(Image_Note_Tab(icon = tab_icon, obj = self))
             elif tab_icon == "bell-plus":
                 self.ids.tabs.add_widget(Remainder_Tab(icon = tab_icon))
             elif tab_icon == "script-text":
@@ -82,6 +82,7 @@ class App_Runner(MDApp):
     scm = ScreenManager()
     def build(self):
         #self.theme_cls.theme_style = "Dark"
+        self.title = "Notes"
         self.theme_cls.primary_palette = 'Green'
         self.scm.add_widget(Main_Screen(name = "Main"))
 
