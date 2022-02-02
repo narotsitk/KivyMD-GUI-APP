@@ -7,22 +7,19 @@
         id: left_icon
         icon: "notebook-check"
     IconRightWidget:
+        id: right_icon
         icon: "trash-can"
         on_press: root.remove_note(root)
 
-    FloatLayout:
-        MDSpinner:
-            id: spin_load
-            size_hint: None, None
-            size: dp(46), dp(46)
-            pos_hint: {'center_x': .5, 'center_y': .5}
-            active: False
+
 
 
 <Text_Voice_Note_Tab>:
     orientation: "vertical"
     spacing: "10dp"
+
     ScrollView:
+
         size_hint: 1 , None
         height: root.height
         MDList:
@@ -31,6 +28,7 @@
 
 
     FloatLayout:
+
         MDFloatingActionButtonSpeedDial:
             data: root.data
             root_button_anim: True
@@ -65,3 +63,15 @@
             multiline: True
             hint_text: "Write Some Notes"
             on_text: root.add_widget_on_toolbar(self.text)
+
+<Welcome_Note>:
+    text: "Welcome To Notes"
+    secondary_text: "You can add your notes here"
+
+    IconLeftWidget:
+        icon: "notebook-plus"
+
+    IconRightWidget:
+        icon: "trash-can"
+        on_press: root.remove_this()
+

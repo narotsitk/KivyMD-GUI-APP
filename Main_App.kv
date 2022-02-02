@@ -10,6 +10,12 @@
         MDTabs:
             id: tabs
             on_tab_switch: root.on_tab_switch(*args)
+#        MDRelativeLayout:
+#            radius : [25,]
+#            size_hint: None, None
+#            md_bg_color : app.theme_cls.primary_color
+#            width: "100dp"
+#            height: "100dp"
 
     MDNavigationDrawer:
         id: nav_drawer
@@ -56,11 +62,38 @@
 
 
 <ItemDrawer>:
+    on_press: root.callback(app)
     IconLeftWidget:
         id: icon
         icon: root.icon
 
 
 
+<Recycle_Bin_Screen>:
+    MDBoxLayout:
+        orientation: "vertical"
+
+    MDToolbar:
+        title: "Recycle Bin"
+        pos_hint: {'top': 1}
+        left_action_items: [['keyboard-backspace', lambda x: root.return_back()]]
+
+    ScrollView:
+        size_hint: None , None
+        height: root.height - 60
+        width: root.width
+        MDList:
+            id: recycle_bin_list
+            spacing: "12dp"
 
 
+
+
+<Recycle_Bin_List>:
+    IconLeftWidget:
+        id: left_icon
+        icon: "notebook-remove"
+
+    IconRightWidget:
+        id: right_icon
+        icon: "restore"

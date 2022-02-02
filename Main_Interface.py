@@ -5,14 +5,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivymd.app import MDApp
 from kivymd.font_definitions import theme_font_styles
-from kivymd.uix.list import OneLineIconListItem, MDList
+from kivymd.uix.list import OneLineIconListItem, MDList, ThreeLineAvatarIconListItem
 from kivymd.uix.picker import MDThemePicker
 from kivymd.uix.tab import MDTabsBase
 from Image_Note import Image_Note_Tab
-from Remainder import Remainder_Tab
+from Reminder import Reminder_Tab
 from Text_Voice_Note import Text_Voice_Note_Tab
 from Tasks import Tasks_Tab
 from kivy.core.window import Window
+#from kivymd.uix.transition.transition import MDFadeSlideTransition
 Builder.load_file("Main_App.kv")
 Window.size = [390,650]
 
@@ -33,7 +34,7 @@ class Main_Screen(Screen):
             elif tab_icon == "image-plus":
                 self.ids.tabs.add_widget(Image_Note_Tab(icon = tab_icon, obj = self))
             elif tab_icon == "bell-plus":
-                self.ids.tabs.add_widget(Remainder_Tab(icon = tab_icon))
+                self.ids.tabs.add_widget(Reminder_Tab(icon = tab_icon))
             elif tab_icon == "script-text":
                 self.ids.tabs.add_widget(Tasks_Tab(icon = tab_icon))
 
@@ -43,7 +44,7 @@ class Main_Screen(Screen):
         elif instace_tab.icon == "image-plus":
             self.ids.tool_bar.title = "Image Note"
         elif instace_tab.icon == "bell-plus":
-            self.ids.tool_bar.title = "Remainder"
+            self.ids.tool_bar.title = "Reminder"
         elif instace_tab.icon == 'script-text':
             self.ids.tool_bar.title = "Tasks"
 
@@ -67,12 +68,23 @@ class DrawerList(MDList):
                 ItemDrawer(icon=icon_name, text=self.icon_items[icon_name])
             )
 
+class Recycle_Bin_Screen(Screen):
+    def return_back(self):
+        self.parent.current = "Main"
+    def add_deleted_items(self,widget):
+        self.ids.recycle_bin_list.add_widget(Recycle_Bin_List(text = widget.text, secondary_text =widget.secondary_text, tertiary_text= widget.tertiary_text))
+
+class Recycle_Bin_List(ThreeLineAvatarIconListItem):
+    pass
+
 
 class ItemDrawer(OneLineIconListItem):
     icon = StringProperty()
-    def on_press(self):
+    def callback(self,app):
         if self.icon == 'theme-light-dark':
             self.open_theme_changer()
+        if self.icon == 'trash-can-outline':
+            app.scm.current = 'Recycle_Bin'
 
     def open_theme_changer(self):
         theme_dialog = MDThemePicker()
@@ -81,13 +93,12 @@ class ItemDrawer(OneLineIconListItem):
 class App_Runner(MDApp):
     scm = ScreenManager()
     def build(self):
-        #self.theme_cls.theme_style = "Dark"
         self.title = "Notes"
-        self.theme_cls.primary_palette = 'Green'
+        self.theme_cls.primary_palette = 'Purple'
         self.scm.add_widget(Main_Screen(name = "Main"))
+        self.scm.add_widget(Recycle_Bin_Screen(name = 'Recycle_Bin'))
 
         return self.scm
-
 
 
 if __name__ == "__main__":

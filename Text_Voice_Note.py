@@ -8,15 +8,15 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
 from kivymd.uix.label import MDLabel
-from kivymd.uix.list import ThreeLineAvatarIconListItem
+from kivymd.uix.list import ThreeLineAvatarIconListItem, TwoLineAvatarListItem, TwoLineAvatarIconListItem
+from kivymd.uix.relativelayout import MDRelativeLayout
 from kivymd.uix.tab import MDTabsBase
-
 
 Builder.load_file("Text_Voice_Note.kv")
 
 
 item_list_object = None
-
+note_no = 0
 class MyItem(ThreeLineAvatarIconListItem):
     title = None
     notes = None
@@ -32,14 +32,20 @@ class MyItem(ThreeLineAvatarIconListItem):
     def add_text(self):
         if self.title != "":
             self.text = self.title
-            self.secondary_text = self.notes[:25]+"..."
+            self.secondary_text = self.notes
             self.tertiary_text = self.time_stamp
         elif self.title == "":
-            self.text = self.notes[:15] + "..."
+            self.text = self.notes
             self.tertiary_text = self.time_stamp
 
     def remove_note(self,widget):
         self.obj.ids.selection_list.remove_widget(widget)
+        if self.text != "Welcome To Notes":
+            recycle_bin = self.obj.obj.parent.get_screen("Recycle_Bin")
+            recycle_bin.add_deleted_items(widget)
+
+
+
 
     def on_callback(self):
         global item_list_object
@@ -58,6 +64,8 @@ class Text_Voice_Note_Tab(BoxLayout,MDTabsBase):
     def __init__(self,obj,**kw):
         super(Text_Voice_Note_Tab, self).__init__(**kw)
         self.obj = obj
+
+        self.ids.selection_list.add_widget(Welcome_Note())
 
 
 
@@ -101,9 +109,9 @@ class Text_Note_Screen(Screen):
         else:
             if title != "":
                 item_list_object.text = title
-                item_list_object.secondary_text = notes[:15]+"..."
+                item_list_object.secondary_text = notes
             elif title == "":
-                item_list_object.text = notes[:15]
+                item_list_object.text = notes
 
             item_list_object.title = title
             item_list_object.notes = notes
@@ -115,4 +123,9 @@ class Text_Note_Screen(Screen):
 
         self.parent.current = "Main"
         self.parent.remove_widget(self.parent.get_screen("Text_Note"))
+
+class Welcome_Note(TwoLineAvatarIconListItem):
+
+    def remove_this(self):
+        self.parent.remove_widget(self)
 

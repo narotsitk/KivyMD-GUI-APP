@@ -2,7 +2,7 @@
     ScrollView:
         MDGridLayout:
             id: image_list
-            cols: 2
+            cols: 1
             adaptive_height: True
             padding: dp(4), dp(4)
             spacing: dp(4)
@@ -15,8 +15,8 @@
 <Image_list>:
     on_press: root.on_press_image()
     FloatLayout:
-        MDIconButton:
-            pos: root.x , root.y + 20
+        MDFloatingActionButton:
+            pos: root.x + 2 , root.y + 35
             icon: "trash-can"
             icon_color: 1,0,0,1
             theme_icon_color: "Error"
@@ -34,8 +34,8 @@
         id: note_card
         padding: 16
         size_hint: None, None
-        height: root.height - 100
-        width: root.width
+        height: root.height - 129
+        width: root.width - 10
         pos_hint: {'center_x': .5,'center_y': .5}
 
         MDRelativeLayout:
@@ -54,3 +54,25 @@
                 on_text: root.add_widget_toolbar(self.text)
 
 
+
+
+<CameraScreen>
+    MDFloatLayout:
+        MDToolbar:
+            pos_hint: {"center_x": .5, "center_y": .96}
+            right_action_items: [["close-box", lambda x: root.Call_Back()]]
+        MDIconButton:
+            icon: "camera"
+            pos_hint: {"center_x": .5,"center_y": 0.05}
+            on_press: root.click_picture()
+
+<Image_Note>:
+    text: "Welcome To Image Note"
+    secondary_text: "You can add your Notes here"
+
+    IconLeftWidget:
+        icon: "image-plus"
+
+    IconRightWidget:
+        icon: "trash-can"
+        on_press: root.remove_this()

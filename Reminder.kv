@@ -1,0 +1,72 @@
+<Reminder_Adder>:
+    radius: [25, ]
+    md_bg_color: app.theme_cls.primary_light
+    size_hint: None , None
+    width: "300dp"
+    padding: "10dp"
+    pos: (50, 250)
+
+    MDTextFieldRound:
+
+        id: Reminder_note_text
+        pos_hint: {'center_x': .5, 'center_y': .7}
+        multiline: False
+        hint_text: "Write A Reminder"
+        icon_left: "bell"
+        size_hint_y: .3
+        size_hint_x: .8
+        color_active: 1, 1, 0, 1
+        line_color: 1,0,0,1
+        on_text: root.get_Reminder(self.text)
+
+    MDFillRoundFlatIconButton:
+        icon: "bell-plus"
+        text: 'set Reminder'
+        pos_hint: {'center_x': .3, 'center_y': .3}
+        size_hint: None, None
+        width: "45dp"
+        height: "30dp"
+        on_press: root.show_time_picker()
+
+    MDFillRoundFlatIconButton:
+        icon: "bell-cancel"
+        text: 'Cancel'
+        pos_hint: {'center_x': .8, 'center_y': .3}
+        size_hint: None, None
+        width: "45dp"
+        height: "30dp"
+        on_press: root.remove_Reminder_creator()
+
+<Reminder_Tab>:
+
+    ScrollView:
+        size_hint: None , None
+        height: root.height
+        width: root.width
+        MDList:
+            id: Reminder_list
+            spacing: "12dp"
+
+    MDFloatingActionButtonSpeedDial:
+        data: root.data
+        root_button_anim: True
+        callback: root.Call_Back
+
+<Reminder_List>:
+    IconLeftWidget:
+        id: left_icon
+        icon: "progress-clock"
+    IconRightWidget:
+        icon: "trash-can"
+        on_press: root.remove_Reminder()
+
+<Reminder_Note>:
+    text: "Welcome To Reminder"
+    secondary_text: "You can add your reminder here"
+
+    IconLeftWidget:
+        icon: "bell-plus"
+
+    IconRightWidget:
+        icon: "trash-can"
+        on_press: root.remove_this()
