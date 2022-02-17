@@ -84,7 +84,7 @@ class Text_Note_Screen(Screen):
         self.ids.title.text = title
         self.ids.notes.text = notes
         self.obj = obj
-        self.timeStr = time.ctime()
+        self.timeStr = time.strftime("%H:%M  %a, %b %d %Y  ", time.localtime())
         if notes != "":
             self.previous_note = True
         else:

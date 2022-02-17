@@ -51,13 +51,13 @@ class Image_Note_Create(Screen):
             previous_note = False
         elif self.note != "":
             previous_note = True
-
+        timestr = strtime = time.strftime("%H:%M  %a, %b %d %Y  ", time.localtime())
         if previous_note == False:
             print(self.obj)
             self.parent.current = "Main"
-            self.obj.ids.image_list.add_widget(Image_List(path=self.path, label_text = self.note_text, time_stamp = time.ctime(), parent_obj = self.parent))
+            self.obj.ids.image_list.add_widget(Image_List(path=self.path, label_text = self.note_text, time_stamp = strtime, parent_obj = self.parent))
         else:
-            image_list_object.text = self.note_text[:25] + f"...\nAdded: {time.ctime()}"
+            image_list_object.text = self.note_text[:25] + f"...\nAdded: {strtime}"
             image_list_object.note = self.note_text
 
         self.parent.remove_widget(self.parent.get_screen("Image_Note_Create"))
@@ -92,7 +92,6 @@ class Image_List(SmartTileWithLabel, ButtonBehavior):
         self.show_confirmation_dialog()
 
 
-
     def dialog_close(self,obj):
         self.dialog.dismiss(force=True)
         #self.obj.current = "Main"
@@ -121,6 +120,10 @@ class Image_List(SmartTileWithLabel, ButtonBehavior):
         self.dialog.open()
 
     def remove_image_note(self,obj):
+        if self.del_widget.source[:6] == "Images":
+            print(self.del_widget.source)
+            os.remove(self.del_widget.source)
+        
         self.parent.remove_widget(self.del_widget)
 
 class Image_Note_Tab(MDFloatLayout, MDTabsBase):

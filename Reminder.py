@@ -52,8 +52,13 @@ class Reminder_Adder(MDRelativeLayout):
         now = datetime.now()
         t1 = timedelta(hours = time_selected.hour, minutes= time_selected.minute,seconds = time_selected.second)
         t2 = timedelta(hours = now.hour,minutes = now.minute,seconds= now.second)
-        schedule_time = t1-t2
+        if ( t1 > t2 ):
+            schedule_time = t1-t2
+        else:
+            schedule_time = t2 - t1
+        print(schedule_time)
         schedule_time = schedule_time.total_seconds()
+        print(schedule_time)
         self.parent.ids.Reminder_list.add_widget(Reminder_List(Reminder=self.Reminder,time = str(time_selected), schedule_time = schedule_time , obj = self.parent))
         self.parent.remove_widget(self)
 
