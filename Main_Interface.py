@@ -15,7 +15,7 @@ from Tasks import Tasks_Tab
 from kivy.core.window import Window
 #from kivymd.uix.transition.transition import MDFadeSlideTransition
 Builder.load_file("Main_App.kv")
-Window.size = [390,650]
+Window.size = [360,640]
 
 
 
@@ -69,6 +69,8 @@ class DrawerList(MDList):
             )
 
 class Recycle_Bin_Screen(Screen):
+
+
     def return_back(self):
         self.parent.current = "Main"
     def add_deleted_items(self,widget):

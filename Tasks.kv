@@ -1,4 +1,59 @@
 <Tasks_Tab>:
+    ScrollView:
+        size_hint: None , None
+        height: root.height
+        width: root.width
+        MDList:
+            id: task_scroll
+            TwoLineAvatarIconListItem:
+                text: "Welcome to Tasks"
+                secondary_text: "You can add your daily tasks here"
+                IconLeftWidget:
+                    icon: 'format-list-checkbox'
+
+
+
     MDFloatingActionButtonSpeedDial:
         data: root.data
         root_button_anim: True
+        callback: root.CallBack
+
+
+<ListItemWithCheckbox>:
+
+    IconLeftWidget:
+        icon: 'trash-can'
+        on_press: root.remove_task()
+
+    RightCheckbox:
+        on_active: root.active_box(*args)
+
+<ContentCustomSheet>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: "150dp"
+    MDFloatLayout:
+
+        MDTextFieldRound:
+            id: task_field
+            size_hint_x: .8
+            size_hint_y: .2
+            pos_hint: {'center_x':.5, 'center_y': .7}
+            multiline: False
+            hint_text: 'Enter your Task'
+
+
+
+
+        MDFillRoundFlatIconButton:
+            icon: "content-save"
+            text: "Save"
+            on_press: root.save_task()
+            pos_hint: {'center_x': .3, 'center_y': .3}
+        MDFillRoundFlatIconButton:
+            icon: "cancel"
+            text: "Cancel"
+            pos_hint: {'center_x': .7, 'center_y': .3}
+            on_press: root.dismiss_bottom_sheet()
+
+
